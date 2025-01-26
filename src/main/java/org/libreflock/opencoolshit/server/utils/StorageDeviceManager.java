@@ -4,20 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-// import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-// import java.io.RandomAccessFile;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.HashMap;
-
 import org.libreflock.opencoolshit.OpenCoolshit;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.event.entity.player.PlayerContainerEvent.Open;
 
 public class StorageDeviceManager {
     public String uuid = "";
@@ -159,11 +150,9 @@ public class StorageDeviceManager {
         // cache.clear();
         byte[] arr = new byte[blksize*blks];
         Arrays.fill(arr, fillByte);
-
-        char[] charArray = new String(arr, StandardCharsets.US_ASCII).toCharArray();
         try{
-            FileWriter writer = new FileWriter(path);
-            writer.write(charArray);
+            FileOutputStream writer = new FileOutputStream(path);
+            writer.write(arr);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

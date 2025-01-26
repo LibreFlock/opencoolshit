@@ -55,7 +55,6 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
         }
 
         byte[] blk = sdev.readBlk((offset-1)/sdev.blksize);
-        OpenCoolshit.LOGGER.info("!!!!!!!!!!!!! READ, FIRST COUPLE BYTES: {}, {}, {}, {}, {}", (int)blk[0], (int)blk[1], (int)blk[2], (int)blk[3], (int)blk[4]);
         return new Object[]{blk[(offset-1)%sdev.blksize]};
     }
 

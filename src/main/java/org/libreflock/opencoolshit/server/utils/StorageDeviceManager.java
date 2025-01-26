@@ -70,7 +70,6 @@ public class StorageDeviceManager {
         file.getParentFile().mkdirs();
 
         if (!file.exists()) {
-            OpenCoolshit.LOGGER.info("NON EXISTY!!!!!!!!!!!!!!!!!");
             byte[] arr = new byte[blksize*blks];
             Arrays.fill(arr, (byte)0xFF);
 
@@ -79,7 +78,6 @@ public class StorageDeviceManager {
                 writer.write(arr);
                 writer.close();
             } catch (IOException e) {
-                OpenCoolshit.LOGGER.error("FAILED INIT, StorageDeviceManager");
                 e.printStackTrace();
             }
         }
@@ -91,7 +89,6 @@ public class StorageDeviceManager {
 
         long dif = (blksize*blks)-file.length();
         if (dif >0) {
-            OpenCoolshit.LOGGER.info("WHAT THE FUUUUUUUUUU {}", dif);
             byte[] arr = new byte[(int) dif];
             Arrays.fill(arr, (byte)0x0ff);
 
@@ -100,8 +97,6 @@ public class StorageDeviceManager {
                 output.write(arr, (int)file.length(), (int)dif);
                 output.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                OpenCoolshit.LOGGER.error("FAILED INIT 2, StorageDeviceManager");
                 e.printStackTrace();
             }
         }
@@ -117,22 +112,20 @@ public class StorageDeviceManager {
         try {
             // // WHY IS JAVA SUCH A PAIN
             // // I DONT WANT TO DO THIS
-            // char[] EVERYTHING = new char[blksize*blks];
-            // FileReader reader = new FileInputStream(path);
-            // reader.read(EVERYTHING);
-            // reader.close();
+            byte[] EVERYTHING = new byte[blksize*blks];
+            FileInputStream reader = new FileInputStream(path);
+            reader.read(EVERYTHING);
+            reader.close();
 
-            // OpenCoolshit.LOGGER.error("CAPACITY: {}, EVERYTHING: {}", blksize*blks, EVERYTHING.length);
 
-            // for (int i=0;i<bytes.length;i++) {
-            //     EVERYTHING[pos+i] = (char)bytes[i];
-            // }
+            for (int i=0;i<bytes.length;i++) {
+                EVERYTHING[pos+i] = bytes[i];
+            }
 
             FileOutputStream writer = new FileOutputStream(path);
-            writer.write(bytes, pos, bytes.length);
+            writer.write(EVERYTHING);
             writer.close();
         } catch (IOException e) {
-            OpenCoolshit.LOGGER.error("FAILED WRITE, StorageDeviceManager");
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -154,12 +147,9 @@ public class StorageDeviceManager {
             reader.skip((long)(pos*blksize));
             reader.read(block);
             reader.close();
-            OpenCoolshit.LOGGER.info("READ BLOCK >> {}", block.length);
         } catch (FileNotFoundException e) {
-            OpenCoolshit.LOGGER.error("FAILED READ 1, StorageDeviceManager");
             e.printStackTrace();
         } catch (IOException e) {
-            OpenCoolshit.LOGGER.error("FAILED READ 2, StorageDeviceManager");
             e.printStackTrace();
         }
         return block;

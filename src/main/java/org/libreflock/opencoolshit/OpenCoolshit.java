@@ -1,6 +1,8 @@
 package org.libreflock.opencoolshit;
 
 import net.minecraft.block.Block;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.storage.FolderName;
 // import net.minecraft.item.ItemModelsProperties;
 // import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,7 +21,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.Items;
 // import org.libreflock.opencoolshit.common.item.Flash;
+import org.libreflock.opencoolshit.server.driver.FlashDriver;
 
+import java.nio.file.Path;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -28,6 +32,7 @@ public class OpenCoolshit
 {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
+    public static Path root;
 
     // public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
@@ -51,7 +56,8 @@ public class OpenCoolshit
     {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
-        // LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        LOGGER.info("FLASH >> {}", Items.FLASH_0.get().getRegistryName().toString());
+        LOGGER.info("FLASH_TIER >> {}", Items.FLASH_0.get().getRegistryName().toString().substring("opencoolshit:ossm_flash_".length()));
 
         // event.enqueueWork(() -> {
         //     LOGGER.info("I BOUGHT A PROPERTY IN EGYPT");
@@ -59,6 +65,7 @@ public class OpenCoolshit
         //         return ((Flash)stack.getItem()).getTier(stack);
         //     });
         // });
+        li.cil.oc.api.Driver.add(new FlashDriver());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -84,6 +91,9 @@ public class OpenCoolshit
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
+        MinecraftServer server = event.getServer();
+        root = server.getWorldPath(FolderName.ROOT);
+
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

@@ -1,7 +1,9 @@
 package org.libreflock.opencoolshit.server.driver;
 
-import org.libreflock.opencoolshit.common.Items;
-
+// import org.libreflock.opencoolshit.OpenCoolshit;
+import org.libreflock.opencoolshit.server.components.Flash;
+// import org.libreflock.opencoolshit.common.item;
+import li.cil.oc.api.driver.item.Slot;
 import li.cil.oc.api.network.EnvironmentHost;
 import li.cil.oc.api.network.ManagedEnvironment;
 import li.cil.oc.api.prefab.DriverItem;
@@ -9,20 +11,25 @@ import net.minecraft.item.ItemStack;
 
 public class FlashDriver extends DriverItem {
 
+    // THESE two methods are definitely horrific though
     @Override
     public boolean worksWith(ItemStack stack) {
-        return stack.getItem().getRegistryName() == Items.FLASH_0.getId() || stack.getItem().getRegistryName() == Items.FLASH_1.getId()|| stack.getItem().getRegistryName() == Items.FLASH_0.getId(); // TODO: THIS IS TERRIBLE
+        return stack.getItem().getRegistryName().toString().startsWith("opencoolshit:ossm_flash_");
     }
 
     @Override
-    public ManagedEnvironment createEnvironment(ItemStack stack, EnvironmentHost host) {
-        return Flash(stack.getItem().tier)
+    public int tier(ItemStack stack) {
+        return ((org.libreflock.opencoolshit.common.item.Flash)stack.getItem()).getTier(stack);
     }
 
     @Override
     public String slot(ItemStack stack) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'slot'");
+        return Slot.Card;
+    }
+
+    @Override
+    public ManagedEnvironment createEnvironment(ItemStack stack, EnvironmentHost host) {
+        return new Flash(tier(stack), host, this, stack);
     }
 
     

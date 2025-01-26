@@ -1,7 +1,9 @@
 package org.libreflock.opencoolshit.server.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 // import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,6 +17,7 @@ import org.libreflock.opencoolshit.OpenCoolshit;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent.Open;
 
 public class StorageDeviceManager {
     public String uuid = "";
@@ -67,14 +70,13 @@ public class StorageDeviceManager {
         file.getParentFile().mkdirs();
 
         if (!file.exists()) {
+            OpenCoolshit.LOGGER.info("NON EXISTY!!!!!!!!!!!!!!!!!");
             byte[] arr = new byte[blksize*blks];
             Arrays.fill(arr, (byte)0xFF);
 
-            char[] charArray = new String(arr, StandardCharsets.UTF_8).toCharArray();
-
             try {
-                FileWriter writer = new FileWriter(file);
-                writer.write(charArray);
+                FileOutputStream writer = new FileOutputStream(file);
+                writer.write(arr);
                 writer.close();
             } catch (IOException e) {
                 OpenCoolshit.LOGGER.error("FAILED INIT, StorageDeviceManager");
@@ -89,15 +91,14 @@ public class StorageDeviceManager {
 
         long dif = (blksize*blks)-file.length();
         if (dif >0) {
+            OpenCoolshit.LOGGER.info("WHAT THE FUUUUUUUUUU {}", dif);
             byte[] arr = new byte[(int) dif];
             Arrays.fill(arr, (byte)0x0ff);
 
-            CharSequence charArray = new String(arr, StandardCharsets.UTF_8);
-
             try {
-                FileWriter writer = new FileWriter(path);
-                writer.append(charArray);
-                writer.close();
+                FileOutputStream output = new FileOutputStream(path);
+                output.write(arr, (int)file.length(), (int)dif);
+                output.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 OpenCoolshit.LOGGER.error("FAILED INIT 2, StorageDeviceManager");
@@ -112,10 +113,23 @@ public class StorageDeviceManager {
         //     return;
         // }
 
-        char[] charArray = new String(bytes, StandardCharsets.UTF_8).toCharArray();
+        // char[] charArray = new String(bytes, StandardCharsets.US_ASCII).toCharArray();
         try {
-            FileWriter writer = new FileWriter(path);
-            writer.write(charArray, pos*blksize, Math.min(blksize, bytes.length));
+            // // WHY IS JAVA SUCH A PAIN
+            // // I DONT WANT TO DO THIS
+            // char[] EVERYTHING = new char[blksize*blks];
+            // FileReader reader = new FileInputStream(path);
+            // reader.read(EVERYTHING);
+            // reader.close();
+
+            // OpenCoolshit.LOGGER.error("CAPACITY: {}, EVERYTHING: {}", blksize*blks, EVERYTHING.length);
+
+            // for (int i=0;i<bytes.length;i++) {
+            //     EVERYTHING[pos+i] = (char)bytes[i];
+            // }
+
+            FileOutputStream writer = new FileOutputStream(path);
+            writer.write(bytes, pos, bytes.length);
             writer.close();
         } catch (IOException e) {
             OpenCoolshit.LOGGER.error("FAILED WRITE, StorageDeviceManager");
@@ -133,14 +147,14 @@ public class StorageDeviceManager {
         //     return cache.get(pos);
         // }
 
-        char[] block = new char[blksize];
-        OpenCoolshit.LOGGER.info("READ BLOCK >> {}, {}", block[0], block[1]);
+        byte[] block = new byte[blksize];
 
         try {
-            FileReader reader = new FileReader(path);
+            FileInputStream reader = new FileInputStream(path);
             reader.skip((long)(pos*blksize));
             reader.read(block);
             reader.close();
+            OpenCoolshit.LOGGER.info("READ BLOCK >> {}", block.length);
         } catch (FileNotFoundException e) {
             OpenCoolshit.LOGGER.error("FAILED READ 1, StorageDeviceManager");
             e.printStackTrace();
@@ -148,7 +162,7 @@ public class StorageDeviceManager {
             OpenCoolshit.LOGGER.error("FAILED READ 2, StorageDeviceManager");
             e.printStackTrace();
         }
-        return new String(block).getBytes();
+        return block;
     }
 
     public void erase(byte fillByte) {
@@ -156,7 +170,7 @@ public class StorageDeviceManager {
         byte[] arr = new byte[blksize*blks];
         Arrays.fill(arr, fillByte);
 
-        char[] charArray = new String(arr, StandardCharsets.UTF_8).toCharArray();
+        char[] charArray = new String(arr, StandardCharsets.US_ASCII).toCharArray();
         try{
             FileWriter writer = new FileWriter(path);
             writer.write(charArray);

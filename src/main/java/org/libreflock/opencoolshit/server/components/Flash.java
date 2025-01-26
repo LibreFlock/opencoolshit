@@ -54,7 +54,8 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
             return new Object[]{null, "invalid offset"};
         }
 
-        byte[] blk = sdev.readBlk((offset-1)%sdev.blksize);
+        byte[] blk = sdev.readBlk((offset-1)/sdev.blksize);
+        OpenCoolshit.LOGGER.info("!!!!!!!!!!!!! READ, FIRST COUPLE BYTES: {}, {}, {}, {}, {}", (int)blk[0], (int)blk[1], (int)blk[2], (int)blk[3], (int)blk[4]);
         return new Object[]{blk[(offset-1)%sdev.blksize]};
     }
 
@@ -67,9 +68,10 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
         }
 
         // OpenCoolshit.LOGGER.info("WRITE BLOCK OFFSET >> {}", (offset - 1)/sdev.blksize);
-        byte[] blk = sdev.readBlk((offset - 1)/sdev.blksize);
-        blk[(offset - 1)%sdev.blksize] = (byte)(value & 0xFF);
-        sdev.writeBlk((offset - 1)/sdev.blksize, blk);
+        // byte[] blk = sdev.readBlk((offset - 1)/sdev.blksize);
+        // blk[(offset - 1)%sdev.blksize] = (byte)(value & 0xFF);
+        // sdev.writeBlk((offset - 1)/sdev.blksize, blk);
+        sdev.writeBlk(offset-1, new byte[]{(byte)value});
         return new Object[]{};
 
     }

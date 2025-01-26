@@ -16,11 +16,13 @@ import net.minecraftforge.event.RegistryEvent.Register;
 
 public class Flash extends BaseItem {
 
-    public Flash(Properties properties) {
+    public Flash(Properties properties, int tier) {
         super(properties);
+        this.tier = tier;
     }
     
     public String lore = "A flash device lets any device have writable memory! Perfect for saving your state!";
+    public int tier;
 
     @Override
     public List<Pair<String, String>> getData(ItemStack stack) {
@@ -43,7 +45,7 @@ public class Flash extends BaseItem {
 
     @Override
     public int getTier(ItemStack stack) {
-        return 1;
+        return this.tier;
     }
 
     @Override

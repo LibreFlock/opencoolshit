@@ -6,15 +6,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.RegistryObject;
 
 public class CreativeTabs {
-    public static final ItemGroup OSSM = new Tab("OpenSolidState", Items.FLASH);
+    public static final ItemGroup OSSM = new Tab("OpenSolidState", Items.FLASH_0);
 
     public static class Tab extends ItemGroup {
         private RegistryObject<Item> icon;
 
-        @SuppressWarnings("unchecked")
-        public Tab(String label, @SuppressWarnings("rawtypes") RegistryObject icon){
-            super(label);
-            this.icon = icon;
+        public Tab(String label, RegistryObject<Item> icon){
+        super(label);
+        this.icon = icon;
         }
 
         @Override

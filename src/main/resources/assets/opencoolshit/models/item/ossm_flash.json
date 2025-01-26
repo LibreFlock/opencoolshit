@@ -4,6 +4,17 @@
     "layer0": "opencoolshit:item/flash_t1"
   },
 
+  "overrides": [
+    {
+      "predicate": { "opencoolshit:tier": 1 },
+      "model": "opencoolshit:item/ossm_flash_1"
+    },
+    {
+      "predicate": { "opencoolshit:tier": 2 },
+      "model": "opencoolshit:item/ossm_flash_2"
+    }
+  ],
+
   "display": {
     "thirdperson": {
       "rotation": [-90,0,0],

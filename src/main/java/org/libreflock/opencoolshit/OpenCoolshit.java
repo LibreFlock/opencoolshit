@@ -1,6 +1,8 @@
 package org.libreflock.opencoolshit;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.util.ResourceLocation;
 // import net.minecraft.item.ItemModelsProperties;
 // import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.Items;
+// import org.libreflock.opencoolshit.common.item.Flash;
 // import org.libreflock.opencoolshit.common.item.Flash;
 
 import java.util.stream.Collectors;
@@ -59,6 +62,9 @@ public class OpenCoolshit
         //         return ((Flash)stack.getItem()).getTier(stack);
         //     });
         // });
+
+        ItemModelsProperties.register(Items.FLASH.get(), new ResourceLocation("opencoolshit", "tier"),
+            (stack, world, living) -> { LOGGER.info("I REGISTERED A PROPERTY IN EGYPT >> {}", (Items.FLASH.get().getTier(stack))); return Items.FLASH.get().getTier(stack); });
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

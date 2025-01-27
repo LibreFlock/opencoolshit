@@ -21,7 +21,10 @@ public class StorageDeviceManager {
     // RandomAccessFile filehand;
 
     public StorageDeviceManager(ItemStack stack, String n_uuid, int blockSize, int blocks) {
-        CompoundNBT comp = stack.getTag().getCompound("oc:data");
+        if (stack.getTag() == null) {
+            stack.save(new CompoundNBT());
+        }
+        CompoundNBT comp = stack.getTag().getCompound("oc:data"); // THIS line is breaking
 
         if (comp.contains("node") && comp.getCompound("node").contains("address")) {
             uuid = comp.getCompound("node").getString("address");
@@ -55,7 +58,7 @@ public class StorageDeviceManager {
     void init(ItemStack stack) {
         CompoundNBT comp = stack.getTag().getCompound("oc:data");
 
-        path = OpenCoolshit.root.toString() + "/ossm_drives/" + uuid + ".bin";
+        path = OpenCoolshit.root.toString() + "/opencoolshit/ossm_drives/" + uuid + ".bin";
 
         File file = new File(path);
         file.getParentFile().mkdirs();

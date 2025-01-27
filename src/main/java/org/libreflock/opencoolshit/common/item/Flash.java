@@ -19,9 +19,11 @@ public class Flash extends BaseItem {
     public Flash(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
+        lore = "A flash device lets any device have writable memory!\nPerfect for saving your state!";
     }
     
-    public String lore = "A flash device lets any device have writable memory! Perfect for saving your state!";
+    // public String ;
+    
     public int tier;
 
     @Override

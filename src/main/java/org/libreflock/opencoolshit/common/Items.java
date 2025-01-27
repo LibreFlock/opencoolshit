@@ -14,4 +14,6 @@ public class Items {
     public static RegistryObject<Item> FLASH_0 = ITEMS.register("ossm_flash_0", () -> new Flash(new Item.Properties().tab(CreativeTabs.OSSM), 0));
     public static RegistryObject<Item> FLASH_1 = ITEMS.register("ossm_flash_1", () -> new Flash(new Item.Properties().tab(CreativeTabs.OSSM), 1));
     public static RegistryObject<Item> FLASH_2 = ITEMS.register("ossm_flash_2", () -> new Flash(new Item.Properties().tab(CreativeTabs.OSSM), 2));
+
+    public static RegistryObject<Item> ITEMGROUP = ITEMS.register("ossm_item_group", () -> new Item(new Item.Properties()));
 }

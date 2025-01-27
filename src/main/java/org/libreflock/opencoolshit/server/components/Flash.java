@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.libreflock.opencoolshit.OpenCoolshit;
+import org.libreflock.opencoolshit.Settings;
 import org.libreflock.opencoolshit.server.driver.FlashDriver;
 import org.libreflock.opencoolshit.server.utils.StorageDeviceManager;
 
@@ -31,7 +32,8 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
 
     public Flash(int tier, EnvironmentHost host, FlashDriver flashDriver, ItemStack stack) {
         setNode(node);
-        sdev = new StorageDeviceManager(stack, null, 64, 64);
+        int[] sizes = new int[]{Settings.COMMON.FLASH_SIZE_TIER1.get(), Settings.COMMON.FLASH_SIZE_TIER2.get(),Settings.COMMON.FLASH_SIZE_TIER3.get()};
+        sdev = new StorageDeviceManager(stack, null, Settings.COMMON.FLASH_BLOCKSIZE.get(), sizes[tier]);
         capacity = sdev.blks*sdev.blksize;
     }
 
@@ -66,13 +68,43 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
             return new Object[]{null, "invalid offset"};
         }
 
-        // OpenCoolshit.LOGGER.info("WRITE BLOCK OFFSET >> {}", (offset - 1)/sdev.blksize);
         // byte[] blk = sdev.readBlk((offset - 1)/sdev.blksize);
         // blk[(offset - 1)%sdev.blksize] = (byte)(value & 0xFF);
         // sdev.writeBlk((offset - 1)/sdev.blksize, blk);
         sdev.writeBlk(offset-1, new byte[]{(byte)value});
         return new Object[]{};
 
+    }
+    @Callback(direct = true, doc = "readSector(offset:number):number -- Read the current contents of the specified sector.")
+    public Object[] readSector(Context ctx, Arguments args) {
+        int offset = args.checkInteger(0);
+        if (offset < 1 || offset > sdev.blks*sdev.blksize) {
+            return new Object[]{null, "invalid offset"};
+        }
+        byte[] blk = sdev.readBlk((offset-1)*sdev.blksize);
+        return new Object[]{blk};
+    }
+
+
+    @Callback(direct = true, doc = "writeSector(offset:number, value:string) -- Write the specified contents to the specified sector.")
+    public Object[] writeSector(Context ctx, Arguments args) {
+        int offset = args.checkInteger(0);
+        byte[] data = args.checkByteArray(1);
+        if (offset < 1 || offset > sdev.blks*sdev.blksize) {
+            return new Object[]{null, "invalid offset"};
+        }
+        sdev.writeBlk((offset-1)*sdev.blksize, data);
+        return new Object[]{};
+    }
+
+    @Callback(direct = true, doc = "getSectorSize():number -- Returns the size of a single sector on the drive, in bytes.")
+    public Object[] getSectorSize(Context ctx, Arguments args) {
+        return new Object[]{sdev.blksize};
+    }
+
+    @Callback(direct = true, doc = "getCapacity():number -- Returns the total capacity of the drive, in bytes.")
+    public Object[] getCapacity(Context ctx, Arguments args) {
+        return new Object[]{capacity};
     }
 
     @Override

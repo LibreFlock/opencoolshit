@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.RegistryObject;
 
 public class CreativeTabs {
-    public static final ItemGroup OSSM = new Tab("OpenSolidState", Items.FLASH_0);
+    public static final ItemGroup OSSM = new Tab("OpenSolidState", Items.ITEMGROUP);
 
     public static class Tab extends ItemGroup {
         private RegistryObject<Item> icon;

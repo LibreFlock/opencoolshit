@@ -2,5 +2,8 @@
     "itemGroup.OpenSolidState": "OpenSolidState",
     "item.opencoolshit.ossm_flash_0": "Flash Card (Tier 1)",
     "item.opencoolshit.ossm_flash_1": "Flash Card (Tier 2)",
-    "item.opencoolshit.ossm_flash_2": "Flash Card (Tier 3)"
+    "item.opencoolshit.ossm_flash_2": "Flash Card (Tier 3)",
+    "item.opencoolshit.ossm_prom_0": "Programmable ROM (Tier 1)",
+    "item.opencoolshit.ossm_prom_1": "Programmable ROM (Tier 2)",
+    "item.opencoolshit.ossm_prom_2": "Programmable ROM (Tier 3)"
 }

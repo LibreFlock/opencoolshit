@@ -22,6 +22,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.Items;
+import org.libreflock.opencoolshit.server.driver.EepromDriver;
 // import org.libreflock.opencoolshit.common.item.Flash;
 import org.libreflock.opencoolshit.server.driver.FlashDriver;
 
@@ -69,6 +70,7 @@ public class OpenCoolshit
         //     });
         // });
         li.cil.oc.api.Driver.add(new FlashDriver());
+        li.cil.oc.api.Driver.add(new EepromDriver());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

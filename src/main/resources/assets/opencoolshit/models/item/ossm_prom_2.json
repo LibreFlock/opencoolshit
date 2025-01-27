@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "ossm:item/prom_t1"
+    "layer0": "opencoolshit:item/prom_t3"
   },
 
   "display": {

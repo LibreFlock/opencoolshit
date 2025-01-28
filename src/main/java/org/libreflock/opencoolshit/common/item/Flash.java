@@ -33,8 +33,8 @@ public class Flash extends BaseItem {
         int[] sizes = new int[]{Settings.COMMON.FLASH_SIZE_TIER1.get(), Settings.COMMON.FLASH_SIZE_TIER2.get(), Settings.COMMON.FLASH_SIZE_TIER3.get()};
 
         int tier = getTier(stack);
-        int blocks = Settings.COMMON.FLASH_BLOCKSIZE.get();
-        int blocksize = sizes[tier];
+        int blocks = sizes[tier];
+        int blocksize = Settings.COMMON.FLASH_BLOCKSIZE.get();
         if (stack.getTagElement("oc:data").contains("blocks")) {
             blocks = stack.getTagElement("oc:data").getInt("blocks");
         }

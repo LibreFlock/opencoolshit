@@ -30,10 +30,24 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
     StorageDeviceManager sdev;
     int capacity;
 
+    int tier;
+    ItemStack stack;
+
     public Flash(int tier, EnvironmentHost host, FlashDriver flashDriver, ItemStack stack) {
         setNode(node);
-        int[] sizes = new int[]{Settings.COMMON.FLASH_SIZE_TIER1.get(), Settings.COMMON.FLASH_SIZE_TIER2.get(),Settings.COMMON.FLASH_SIZE_TIER3.get()};
-        sdev = new StorageDeviceManager(stack, null, Settings.COMMON.FLASH_BLOCKSIZE.get(), sizes[tier]);
+        this.stack = stack;
+        this.tier = tier;
+        // int[] sizes = new int[]{Settings.COMMON.FLASH_SIZE_TIER1.get(), Settings.COMMON.FLASH_SIZE_TIER2.get(),Settings.COMMON.FLASH_SIZE_TIER3.get()};
+        // sdev = new StorageDeviceManager(stack, null, Settings.COMMON.FLASH_BLOCKSIZE.get(), sizes[tier]);
+    }
+
+    @Override
+    public void onConnect(final Node node) {
+        super.onConnect(node);
+        loadData(this.stack.getTag());
+
+        int[] sizes = new int[]{Settings.COMMON.EEPROM_SIZE_TIER1.get(), Settings.COMMON.EEPROM_SIZE_TIER2.get(),Settings.COMMON.EEPROM_SIZE_TIER3.get()};
+        sdev = new StorageDeviceManager(stack, this.uuid, Settings.COMMON.EEPROM_BLOCKSIZE.get(), sizes[tier]);
         capacity = sdev.blks*sdev.blksize;
     }
 
@@ -81,7 +95,7 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
         if (offset < 1 || offset > sdev.blks*sdev.blksize) {
             return new Object[]{null, "invalid offset"};
         }
-        byte[] blk = sdev.readBlk((offset-1)*sdev.blksize);
+        byte[] blk = sdev.readBlk(offset-1);
         return new Object[]{blk};
     }
 
@@ -132,6 +146,8 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
     @Override
     public void loadData(CompoundNBT nbt) {
         super.loadData(nbt);
+        if (sdev == null) { return; } // this is so schizo
+
         if (uuid == "") {
             if (uuid == "") {
                 if (node() != null) {
@@ -139,10 +155,10 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
                         uuid = "";
                     } else {
                         uuid = node().address();
-                    } // this literally never works (according to the original developer)
+                    } // this literally never works (according to the original developer) (it sorta does)
                 }
                 if (uuid == "") {
-                    uuid = nbt.getCompound("node").getString("address");
+                    uuid = nbt.getCompound("oc:data").getCompound("node").getString("address");
                 }
                 if (uuid != "")
                     sdev.uuid = uuid;

@@ -33,7 +33,7 @@ public class StorageDeviceManager {
         }
 
         if (comp.contains("blockSize")) {
-            blksize = comp.getInt("blocks");
+            blksize = comp.getInt("blockSize");
         } else {
             blksize = blockSize;
         }

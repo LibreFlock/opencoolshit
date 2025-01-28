@@ -1,5 +1,6 @@
 package org.libreflock.opencoolshit.server.components;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,6 +91,15 @@ public class Eeprom extends AbstractManagedEnvironment implements DeviceInfo {
         if (blk < 1 || blk > sdev.blks) {
             return new Object[]{"block out of bounds"};
         } else {
+            if (tier==0) {
+                byte[] readblk = sdev.readBlk((blk-1));
+                byte[] empty = new byte[sdev.blksize];
+                Arrays.fill(empty, (byte)0xFF);
+                if (!Arrays.equals(readblk, empty)) {
+                // if(!readblk.equals(empty)) {
+                    return new Object[]{"block already written to"};
+                }
+            }
             sdev.writeBlk((blk-1)*sdev.blksize, data);
             ctx.pause(Settings.COMMON.EEPROM_FLASH_TIME.get()/sdev.blks);
             return new Object[]{true};

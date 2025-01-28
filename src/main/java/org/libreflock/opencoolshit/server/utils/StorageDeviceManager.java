@@ -112,7 +112,7 @@ public class StorageDeviceManager {
             reader.close();
 
 
-            for (int i=0;i<bytes.length;i++) {
+            for (int i=0;i<Math.min(this.blksize,bytes.length);i++) {
                 EVERYTHING[pos+i] = bytes[i];
             }
 

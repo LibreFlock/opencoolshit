@@ -17,7 +17,9 @@ public class Eeprom extends BaseItem {
 
     @Override
     public int getTier(ItemStack stack) {
-        return Integer.valueOf(stack.getItem().getRegistryName().toString().substring("opencoolshit:ossm_prom_".length()));
+        // return Integer.valueOf(stack.getItem().getRegistryName().toString().substring("opencoolshit:ossm_prom_".length()));
+        String[] segs = stack.getItem().getRegistryName().toString().split("_");
+        return Integer.valueOf(segs[segs.length-1]);
     }
 
     @Override

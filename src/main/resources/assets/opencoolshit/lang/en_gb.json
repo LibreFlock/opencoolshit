@@ -5,5 +5,8 @@
     "item.opencoolshit.ossm_flash_2": "Flash Card (Tier 3)",
     "item.opencoolshit.ossm_prom_0": "Programmable ROM (Tier 1)",
     "item.opencoolshit.ossm_prom_1": "Programmable ROM (Tier 2)",
-    "item.opencoolshit.ossm_prom_2": "Programmable ROM (Tier 3)"
+    "item.opencoolshit.ossm_prom_2": "Programmable ROM (Tier 3)",
+    "item.opencoolshit.ossm_prom_upgrade_0": "Programmable ROM Upgrade (Tier 1)",
+    "item.opencoolshit.ossm_prom_upgrade_1": "Programmable ROM Upgrade (Tier 2)",
+    "item.opencoolshit.ossm_prom_upgrade_2": "Programmable ROM Upgrade (Tier 3)"
 }

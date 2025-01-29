@@ -29,7 +29,13 @@ public class EepromDriver extends DriverItem {
 
     @Override
     public String slot(ItemStack stack) {
-        return Slot.HDD;
+        String[] segs = stack.getItem().getRegistryName().toString().split("_");
+        switch(segs[segs.length-2]) {
+            case "upgrade":
+                return Slot.Upgrade;
+            default:
+                return Slot.HDD;
+        }
     }
 
     @Override

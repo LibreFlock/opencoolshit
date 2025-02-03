@@ -24,5 +24,8 @@ public class Items {
     public static RegistryObject<Item> EEPROM_UPGR_1 = ITEMS.register("ossm_prom_upgrade_1", () -> new Eeprom(new Item.Properties().tab(CreativeTabs.OSSM)));
     public static RegistryObject<Item> EEPROM_UPGR_2 = ITEMS.register("ossm_prom_upgrade_2", () -> new Eeprom(new Item.Properties().tab(CreativeTabs.OSSM)));
 
+    public static RegistryObject<Item> SOC_TEMPLATE_0 = ITEMS.register("ossm_soc_template_0", () -> new Item(new Item.Properties().tab(CreativeTabs.OSSM)));
+    public static RegistryObject<Item> SOC_0 = ITEMS.register("ossm_soc_0", () -> new Item(new Item.Properties()));
+
     public static RegistryObject<Item> ITEMGROUP = ITEMS.register("ossm_item_group", () -> new Item(new Item.Properties()));
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.Settings;
-import org.libreflock.opencoolshit.server.driver.FlashDriver;
+import org.libreflock.opencoolshit.server.internal.FlashDriver;
 import org.libreflock.opencoolshit.server.utils.StorageDeviceManager;
 
 import li.cil.oc.api.Network;

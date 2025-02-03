@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "ossm:item/soc_t1"
+    "layer0": "opencoolshit:item/soc_template_t1"
   },
 
   "display": {

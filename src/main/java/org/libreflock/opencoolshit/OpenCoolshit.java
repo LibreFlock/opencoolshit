@@ -22,9 +22,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.Items;
-import org.libreflock.opencoolshit.server.driver.EepromDriver;
-// import org.libreflock.opencoolshit.common.item.Flash;
-import org.libreflock.opencoolshit.server.driver.FlashDriver;
+import org.libreflock.opencoolshit.common.assembler.Templator;
+import org.libreflock.opencoolshit.server.internal.EepromDriver;
+import org.libreflock.opencoolshit.server.internal.FlashDriver;
+import org.libreflock.opencoolshit.server.internal.SocDriver;
 
 import java.nio.file.Path;
 import java.util.stream.Collectors;
@@ -71,6 +72,10 @@ public class OpenCoolshit
         // });
         li.cil.oc.api.Driver.add(new FlashDriver());
         li.cil.oc.api.Driver.add(new EepromDriver());
+        li.cil.oc.api.Driver.add(new SocDriver());
+
+        // testTemplate.init();
+        Templator.register();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

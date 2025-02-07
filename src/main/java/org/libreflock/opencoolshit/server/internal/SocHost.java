@@ -1,5 +1,7 @@
 package org.libreflock.opencoolshit.server.internal;
 
+import org.libreflock.opencoolshit.OpenCoolshit;
+
 import li.cil.oc.api.network.EnvironmentHost;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -22,6 +24,7 @@ public class SocHost implements EnvironmentHost {
 
     @Override
     public double xPosition() {
+        OpenCoolshit.LOGGER.info(this.player.getX());
         return this.player.getX();
     }
 

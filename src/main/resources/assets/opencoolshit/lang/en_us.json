@@ -8,5 +8,12 @@
     "item.opencoolshit.ossm_prom_2": "Programmable ROM (Tier 3)",
     "item.opencoolshit.ossm_prom_upgrade_0": "Programmable ROM Upgrade (Tier 1)",
     "item.opencoolshit.ossm_prom_upgrade_1": "Programmable ROM Upgrade (Tier 2)",
-    "item.opencoolshit.ossm_prom_upgrade_2": "Programmable ROM Upgrade (Tier 3)"
+    "item.opencoolshit.ossm_prom_upgrade_2": "Programmable ROM Upgrade (Tier 3)",
+    "item.opencoolshit.ossm_soc_0": "SoC (Tier 1)",
+    "item.opencoolshit.ossm_soc_1": "SoC (Tier 2)",
+    "item.opencoolshit.ossm_soc_2": "SoC (Tier 3)",
+    "item.opencoolshit.ossm_soc_template_0": "SoC Template (Tier 1)",
+    "item.opencoolshit.ossm_soc_template_1": "SoC Template (Tier 2)",
+    "item.opencoolshit.ossm_soc_template_2": "SoC Template (Tier 3)"
+    
 }

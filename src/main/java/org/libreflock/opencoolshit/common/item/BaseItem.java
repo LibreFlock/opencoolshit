@@ -46,8 +46,19 @@ public abstract class BaseItem extends Item {
                 tooltip.add(new StringTextComponent("<LSHIFT>").withStyle(TextFormatting.GRAY));
             }
         }
-    }
+        // if (stack.hasTag()) {
+        //     if (stack.getTag().contains("oc:data")) {
+        //         if (stack.getTag().contains("node")) { // aaaa this sucks
 
+        //         }
+        //     }
+        // }
+        if (stack.hasTag() && stack.getTag().contains("oc:data") && stack.getTag().getCompound("oc:data").contains("node")) { // much better i think
+            String address = stack.getTag().getCompound("oc:data").getCompound("node").getString("address");
+            address = address.substring(0, 13) + "...";
+            tooltip.add(new StringTextComponent(address).withStyle(TextFormatting.DARK_GRAY));
+        }
+    }
     // public abstract void register(RegistryEvent.Register<Item> event);
 
     

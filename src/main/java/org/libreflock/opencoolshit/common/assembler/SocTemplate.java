@@ -14,7 +14,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent.Open;
 import net.minecraftforge.items.ItemStackHandler;
 import li.cil.oc.api.Driver;
@@ -84,17 +87,17 @@ public class SocTemplate {
         
         // OpenCoolshit.LOGGER.warn("PROM, CPU, cards: {} {} {} ",inv.getItem(14).toString(), inv.getItem(17).toString(), inv.getItem(20).toString());
         if (inv.getItem(17).isEmpty()) {
-            return new Object[]{false, new StringTextComponent("No CPU!")};
+            return new Object[]{false, new StringTextComponent("No CPU!").withStyle(TextFormatting.RED)};
         }
 
         if (!inv.getItem(14).isEmpty() && !inv.getItem(14).getItem().getRegistryName().toString().startsWith("opencoolshit:ossm_prom_")) {
-            return new Object[]{false, new StringTextComponent("No HDDs allowed!")};
+            return new Object[]{false, new StringTextComponent("No HDDs allowed!").withStyle(TextFormatting.RED)};
         }
 
         if (!inv.getItem(14).isEmpty()) {
-            return new Object[]{true, new StringTextComponent("ready!")};
+            return new Object[]{true, new StringTextComponent("Ready!")};
         } else {
-            return new Object[]{true, new StringTextComponent("PROM recommended.")};
+            return new Object[]{true, new StringTextComponent("Ready!"), new IFormattableTextComponent[]{new StringTextComponent("PROM recommended!").withStyle(TextFormatting.DARK_RED)}};
         }
     }
 

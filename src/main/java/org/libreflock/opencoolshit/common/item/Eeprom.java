@@ -12,6 +12,7 @@ public class Eeprom extends BaseItem {
 
     public Eeprom(Properties properties) {
         super(properties);
+        lore = "A General Purpose PROM!\nTier 1 can't ELECTRICALLY erase.";
     }
     
 

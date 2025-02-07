@@ -7,6 +7,7 @@ public class Soc extends BaseItem {
 
     public Soc(Properties properties) {
         super(properties);
+        lore = "Allows you to integrate components\ndirectly into your CPU!";
     }
     
 

@@ -7,27 +7,18 @@ import java.util.Map;
 import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.server.internal.SocDriver;
 import org.libreflock.opencoolshit.server.utils.InvDeserializer.InvEntry;
-
-import li.cil.oc.api.Driver;
-import li.cil.oc.api.Items;
 import li.cil.oc.api.Network;
 import li.cil.oc.api.detail.Builder.ConnectorBuilder;
 import li.cil.oc.api.detail.Builder.NodeBuilder;
-import li.cil.oc.api.detail.ItemInfo;
 import li.cil.oc.api.driver.DeviceInfo;
-import li.cil.oc.api.driver.DriverItem;
 import li.cil.oc.api.network.EnvironmentHost;
-import li.cil.oc.api.network.ManagedEnvironment;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
 import li.cil.oc.api.prefab.AbstractManagedEnvironment;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.NBTTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class Soc extends AbstractManagedEnvironment implements DeviceInfo {
 
@@ -58,11 +49,11 @@ public class Soc extends AbstractManagedEnvironment implements DeviceInfo {
         loadData(this.stack.getTag());
         for (int i=0; i<envs.size(); i++) {
             InvEntry item = envs.get(i);
-            OpenCoolshit.LOGGER.info("CONNECTING THIS ONE {}", item.stack.toString());
+            // OpenCoolshit.LOGGER.info("CONNECTING THIS ONE {}", item.stack.toString());
             if (item.env.node() != null) {
                 if (node != item.env.node()) {
                     node.network().connect(node, item.env.node());
-                    OpenCoolshit.LOGGER.info("CONNECTED THIS ONE {}", item.stack.toString());
+                    // OpenCoolshit.LOGGER.info("CONNECTED THIS ONE {}", item.stack.toString());
                 }
             }
         }
@@ -92,6 +83,21 @@ public class Soc extends AbstractManagedEnvironment implements DeviceInfo {
     @Override
     public void saveData(CompoundNBT nbt) {
         super.saveData(nbt);
+        ItemStackHandler handler = new ItemStackHandler();
+        handler.setSize(envs.size());
+        for (int i=0;i<envs.size();i++) {
+            if (envs.get(i).env != null) {
+                envs.get(i).driver.dataTag(envs.get(i).stack);
+                envs.get(i).env.saveData(envs.get(i).stack.getTag().getCompound("oc:data")); // force it because i cant be bothered writing good code
+            }
+            ItemStack item = envs.get(i).stack;
+            if(!item.isEmpty()){
+                handler.setStackInSlot(i, item);
+            }
+        }
+        // OpenCoolshit.LOGGER.info("Serialized stacks: {}", handler.serializeNBT());
+        stack.getTag().put("components", handler.serializeNBT());
+
         if (uuid == "") {
             if (node() != null) {
                 if (node().address() == null) {
@@ -112,6 +118,12 @@ public class Soc extends AbstractManagedEnvironment implements DeviceInfo {
     @Override
     public void loadData(CompoundNBT nbt) {
         super.loadData(nbt);
+
+        for(InvEntry item : envs) {
+            if (item.env != null && item.stack.getTag().contains("oc:data")) {
+                item.env.loadData(item.stack.getTag().getCompound("oc:data")); /// aaaa
+            }
+        }
 
         if (uuid == "") {
             if (uuid == "") {

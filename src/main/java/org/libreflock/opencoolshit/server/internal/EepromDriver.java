@@ -1,8 +1,6 @@
 package org.libreflock.opencoolshit.server.internal;
 
-import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.server.components.Eeprom;
-
 import li.cil.oc.api.driver.item.Slot;
 import li.cil.oc.api.network.EnvironmentHost;
 import li.cil.oc.api.network.ManagedEnvironment;

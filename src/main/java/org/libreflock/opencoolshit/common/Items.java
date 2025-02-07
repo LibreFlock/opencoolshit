@@ -2,6 +2,7 @@ package org.libreflock.opencoolshit.common;
 
 import org.libreflock.opencoolshit.common.item.Eeprom;
 import org.libreflock.opencoolshit.common.item.Flash;
+import org.libreflock.opencoolshit.common.item.Soc;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -25,7 +26,12 @@ public class Items {
     public static RegistryObject<Item> EEPROM_UPGR_2 = ITEMS.register("ossm_prom_upgrade_2", () -> new Eeprom(new Item.Properties().tab(CreativeTabs.OSSM)));
 
     public static RegistryObject<Item> SOC_TEMPLATE_0 = ITEMS.register("ossm_soc_template_0", () -> new Item(new Item.Properties().tab(CreativeTabs.OSSM)));
-    public static RegistryObject<Item> SOC_0 = ITEMS.register("ossm_soc_0", () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> SOC_TEMPLATE_1 = ITEMS.register("ossm_soc_template_1", () -> new Item(new Item.Properties().tab(CreativeTabs.OSSM)));
+    public static RegistryObject<Item> SOC_TEMPLATE_2 = ITEMS.register("ossm_soc_template_2", () -> new Item(new Item.Properties().tab(CreativeTabs.OSSM)));
+    
+    public static RegistryObject<Item> SOC_0 = ITEMS.register("ossm_soc_0", () -> new Soc(new Item.Properties()));
+    public static RegistryObject<Item> SOC_1 = ITEMS.register("ossm_soc_1", () -> new Soc(new Item.Properties()));
+    public static RegistryObject<Item> SOC_2 = ITEMS.register("ossm_soc_2", () -> new Soc(new Item.Properties()));
 
     public static RegistryObject<Item> ITEMGROUP = ITEMS.register("ossm_item_group", () -> new Item(new Item.Properties()));
 }

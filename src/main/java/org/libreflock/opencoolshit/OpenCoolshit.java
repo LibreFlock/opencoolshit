@@ -22,7 +22,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.Items;
-import org.libreflock.opencoolshit.common.assembler.Templator;
+import org.libreflock.opencoolshit.common.assembler.SocTemplate;
 import org.libreflock.opencoolshit.server.internal.EepromDriver;
 import org.libreflock.opencoolshit.server.internal.FlashDriver;
 import org.libreflock.opencoolshit.server.internal.SocDriver;
@@ -57,6 +57,15 @@ public class OpenCoolshit
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    private void registerDriver() {
+        li.cil.oc.api.Driver.add(new FlashDriver());
+        li.cil.oc.api.Driver.add(new EepromDriver());
+        li.cil.oc.api.Driver.add(new SocDriver());
+    }
+
+    private void registerTemplates() {
+        SocTemplate.register();
+    }
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
@@ -70,12 +79,11 @@ public class OpenCoolshit
         //         return ((Flash)stack.getItem()).getTier(stack);
         //     });
         // });
-        li.cil.oc.api.Driver.add(new FlashDriver());
-        li.cil.oc.api.Driver.add(new EepromDriver());
-        li.cil.oc.api.Driver.add(new SocDriver());
 
         // testTemplate.init();
-        Templator.register();
+        
+        registerDriver();
+        registerTemplates();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

@@ -1,7 +1,5 @@
 package org.libreflock.opencoolshit.server.internal;
 
-import org.libreflock.opencoolshit.OpenCoolshit;
-// import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.server.components.Flash;
 import li.cil.oc.api.driver.item.Slot;
 import li.cil.oc.api.network.EnvironmentHost;

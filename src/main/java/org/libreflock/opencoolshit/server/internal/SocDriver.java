@@ -3,9 +3,12 @@ package org.libreflock.opencoolshit.server.internal;
 // import java.util.ArrayList;
 // import java.util.List;
 import java.util.Collection;
+
+import org.libreflock.opencoolshit.Settings;
 import org.libreflock.opencoolshit.server.components.Soc;
 import org.libreflock.opencoolshit.server.utils.InvDeserializer;
 
+import li.cil.oc.api.Driver;
 // import li.cil.oc.api.Driver;
 // import li.cil.oc.api.Items;
 import li.cil.oc.api.Machine;
@@ -19,11 +22,20 @@ import li.cil.oc.api.prefab.DriverItem;
 // import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 // import net.minecraft.nbt.ListNBT;
 // import net.minecraft.util.ResourceLocation;
 // import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class SocDriver extends DriverItem implements MutableProcessor, CallBudget {
+
+    private DriverItem DriverCPU;
+    public SocDriver() {
+        super();
+        Driver.driverFor(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("opencomputers:cpu0"))));
+
+    }
 
     @Override
     public boolean worksWith(ItemStack stack) {
@@ -31,8 +43,16 @@ public class SocDriver extends DriverItem implements MutableProcessor, CallBudge
     }
 
     @Override
+    public int tier(ItemStack stack) {
+        // return ((org.libreflock.opencoolshit.common.item.Soc)stack.getItem()).getTier(stack);
+        String[] segs = stack.getItem().getRegistryName().toString().split("_");
+        return Integer.valueOf(segs[segs.length-1]); // didnt want to do this but i got forced by schizo java
+    }
+
+    @Override
     public int supportedComponents(ItemStack stack) {
-        return 64; // TODO: COOOOONFIIIIIG
+        int[] comps = new int[]{Settings.COMMON.SOC_COMPONENTS_TIER1.get(), Settings.COMMON.SOC_COMPONENTS_TIER2.get(), Settings.COMMON.SOC_COMPONENTS_TIER3.get()};
+        return comps[tier(stack)];
     }
 
     @Override
@@ -61,7 +81,7 @@ public class SocDriver extends DriverItem implements MutableProcessor, CallBudge
     public ManagedEnvironment createEnvironment(ItemStack stack, EnvironmentHost host) {
         InvDeserializer inv = new InvDeserializer(stack, host);
 
-        return new Soc(0, host, this, stack, inv.items); // TODO: tiers
+        return new Soc(tier(stack), host, this, stack, inv.items); // TODO: tiers
     }
 
     @Override
@@ -71,7 +91,9 @@ public class SocDriver extends DriverItem implements MutableProcessor, CallBudge
 
     @Override
     public double getCallBudget(ItemStack stack) {
-        return 2; // TODO: COOONFIIIIG
+
+        int[] budgets = new int[]{Settings.COMMON.SOC_CALLBUDGET_TIER1.get(), Settings.COMMON.SOC_CALLBUDGET_TIER2.get(), Settings.COMMON.SOC_CALLBUDGET_TIER3.get()};
+        return budgets[tier(stack)];
     }
 
     @Override

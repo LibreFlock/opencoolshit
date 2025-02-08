@@ -22,6 +22,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.Items;
+import org.libreflock.opencoolshit.common.assembler.PromWipeTemplate;
 import org.libreflock.opencoolshit.common.assembler.SocTemplate;
 import org.libreflock.opencoolshit.server.internal.EepromDriver;
 import org.libreflock.opencoolshit.server.internal.FlashDriver;
@@ -65,6 +66,7 @@ public class OpenCoolshit
 
     private void registerTemplates() {
         SocTemplate.register();
+        PromWipeTemplate.register();
     }
     private void setup(final FMLCommonSetupEvent event)
     {

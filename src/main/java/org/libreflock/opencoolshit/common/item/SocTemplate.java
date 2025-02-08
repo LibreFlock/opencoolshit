@@ -13,9 +13,8 @@ public class SocTemplate extends BaseItem {
             lore = "Template for creating SoC's\nI would make some joke here, but im too stoopid";
         }
     
-        @Override
+    @Override
     public List<Pair<String, String>> getData(ItemStack stack) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getData'");
     }
 

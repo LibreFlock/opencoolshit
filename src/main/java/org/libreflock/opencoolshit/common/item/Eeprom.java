@@ -40,7 +40,7 @@ public class Eeprom extends BaseItem {
         }
 
         return Arrays.asList(
-            new Pair<String,String>(Constants.ObjectProperties.Storage, Utils.toBytes((double)(blocks*blocksize), 0)),
+            new Pair<String,String>(Constants.ObjectProperties.Storage, Utils.toBytes((double)(blocks), 0)),
             new Pair<String,String>(Constants.ObjectProperties.SectorSize, Utils.toBytes((double)blocksize, 0))
         );
     }

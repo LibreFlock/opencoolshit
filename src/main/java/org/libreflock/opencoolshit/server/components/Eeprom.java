@@ -51,7 +51,6 @@ public class Eeprom extends AbstractManagedEnvironment implements DeviceInfo {
 
     @Override
     public Map<String, String> getDeviceInfo() {
-        // TODO Auto-generated method stub
         return new HashMap<String,String>() {{
             put(DeviceInfo.DeviceAttribute.Class, DeviceInfo.DeviceClass.Disk);
             put(DeviceInfo.DeviceAttribute.Description, "PROM");

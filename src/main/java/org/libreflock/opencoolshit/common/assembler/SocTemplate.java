@@ -4,12 +4,9 @@ import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.common.Items;
-import org.libreflock.opencoolshit.common.item.Soc;
 import org.libreflock.opencoolshit.server.internal.SocHost;
-
 import li.cil.oc.api.IMC;
 import li.cil.oc.api.driver.item.Slot;
-import li.cil.oc.api.network.ManagedEnvironment;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,10 +14,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
-import net.minecraftforge.event.entity.player.PlayerContainerEvent.Open;
 import net.minecraftforge.items.ItemStackHandler;
-import li.cil.oc.api.Driver;
 
 
 public class SocTemplate {
@@ -132,13 +126,14 @@ public class SocTemplate {
             }
         }
         
-        if (inv.getItem(17).hasTag()) {
-            CompoundNBT data = inv.getItem(17).getTag();
-            nbt.putString("oc:archClass", data.getString("oc:archClass"));
-            nbt.putString("oc:archName", data.getString("archName"));
+        if (inv.getItem(17).hasTag() && inv.getItem(17).getTag().contains("oc:data")) {
+            CompoundNBT data = inv.getItem(17).getTag().getCompound("oc:data");
+            // OpenCoolshit.LOGGER.info("CPU NBT: {}", data.toString());
+            if (nbt.contains("oc:archClass")) nbt.putString("oc:archClass", data.getString("oc:archClass"));
+            if (nbt.contains("oc:archName")) nbt.putString("oc:archName", data.getString("oc:archName"));
         }
 
-        int cputier = Integer.valueOf(inv.getItem(17).getItem().getRegistryName().toString().substring("opencomputers:cpu".length())); // should also work with apu because same length, creative tiers will break tho
+        // int cputier = Integer.valueOf(inv.getItem(17).getItem().getRegistryName().toString().substring("opencomputers:cpu".length())); // should also work with apu because same length, creative tiers will break tho
         
         String[] segs = inv.getItem(0).getItem().getRegistryName().toString().split("_");
         int soctier = Integer.valueOf(segs[segs.length-1]);
@@ -160,7 +155,7 @@ public class SocTemplate {
         }
 
         nbt.put("components", handler.serializeNBT());
-        nbt.putInt("oc:cputier", cputier); // might or might not use
+        nbt.putString("oc:cpu", inv.getItem(17).getItem().getRegistryName().toString()); // might or might not use
         
 
         ItemStack soc = new ItemStack(item, 1);

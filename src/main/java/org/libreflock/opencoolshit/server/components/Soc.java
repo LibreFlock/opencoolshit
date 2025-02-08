@@ -70,7 +70,6 @@ public class Soc extends AbstractManagedEnvironment implements DeviceInfo {
 
     @Override
     public Map<String, String> getDeviceInfo() {
-        // TODO Auto-generated method stub
         return new HashMap<String,String>() {{
             put(DeviceInfo.DeviceAttribute.Class, DeviceInfo.DeviceClass.Processor);
             put(DeviceInfo.DeviceAttribute.Description, "SoC");

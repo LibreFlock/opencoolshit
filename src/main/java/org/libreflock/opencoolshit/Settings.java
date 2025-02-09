@@ -18,19 +18,12 @@ public class Settings {
         public final ConfigValue<Integer> EEPROM_SIZE_TIER3;
 
         public final ConfigValue<Integer> EEPROM_FLASH_TIME;
+        public final ConfigValue<Integer> EEPROM_WIPE_COST;
         // public final ConfigValue<int[]> FLASH_SIZES;
 
-        public final ConfigValue<Integer> SOC_CALLBUDGET_TIER1;
-        public final ConfigValue<Integer> SOC_CALLBUDGET_TIER2;
-        public final ConfigValue<Integer> SOC_CALLBUDGET_TIER3;
-        
-        public final ConfigValue<Integer> SOC_COMPONENTS_TIER1;
-        public final ConfigValue<Integer> SOC_COMPONENTS_TIER2;
-        public final ConfigValue<Integer> SOC_COMPONENTS_TIER3;
-
-        public final ConfigValue<Integer> SOC_COMPLEXITY_TIER1;
-        public final ConfigValue<Integer> SOC_COMPLEXITY_TIER2;
-        public final ConfigValue<Integer> SOC_COMPLEXITY_TIER3;
+        public final ConfigValue<Integer> SOC_ASSEMBLYCOST_TIER1;
+        public final ConfigValue<Integer> SOC_ASSEMBLYCOST_TIER2;
+        public final ConfigValue<Integer> SOC_ASSEMBLYCOST_TIER3;
         
 
         public Common(ForgeConfigSpec.Builder builder) {
@@ -49,20 +42,13 @@ public class Settings {
             this.EEPROM_SIZE_TIER3 = builder.comment("Block capacity of PROM (Tier 3)").define("eeprom_size_3", 256);
 
             this.EEPROM_FLASH_TIME = builder.comment("Flash time of PROMs").define("eeprom_flash_time", 2);
+            this.EEPROM_WIPE_COST = builder.comment("The energy cost of wiping a PROM").define("eeprom_wipe_cost", 600);
             builder.pop();
 
             builder.push("SoC");
-            this.SOC_CALLBUDGET_TIER1 = builder.comment("Call budget of SoC (Tier 1)").define("soc_callbudget_1", 64);
-            this.SOC_CALLBUDGET_TIER2 = builder.comment("Call budget of SoC (Tier 2)").define("soc_callbudget_2", 64);
-            this.SOC_CALLBUDGET_TIER3 = builder.comment("Call budget of SoC (Tier 3)").define("soc_callbudget_3", 64);
-
-            this.SOC_COMPONENTS_TIER1 = builder.comment("Max components of SoC (Tier 1)").define("soc_components_1", 64);
-            this.SOC_COMPONENTS_TIER2 = builder.comment("Max components of SoC (Tier 2)").define("soc_components_2", 64);
-            this.SOC_COMPONENTS_TIER3 = builder.comment("Max components of SoC (Tier 3)").define("soc_components_3", 64);
-
-            this.SOC_COMPLEXITY_TIER1 = builder.comment("Max complexity of SoC (Tier 1)").define("soc_complexity_1", 1);
-            this.SOC_COMPLEXITY_TIER2 = builder.comment("Max complexity of SoC (Tier 2)").define("soc_complexity_2", 2);
-            this.SOC_COMPLEXITY_TIER3 = builder.comment("Max complexity of SoC (Tier 3)").define("soc_complexity_3", 5);
+            this.SOC_ASSEMBLYCOST_TIER1 = builder.comment("The Energy Cost of assembling an SoC (Tier 1)").define("soc_assemblyCost_1", 200);
+            this.SOC_ASSEMBLYCOST_TIER2 = builder.comment("The Energy Cost of assembling an SoC (Tier 2)").define("soc_assemblyCost_2", 400);
+            this.SOC_ASSEMBLYCOST_TIER3 = builder.comment("The Energy Cost of assembling an SoC (Tier 3)").define("soc_assemblyCost_3", 600);
             builder.pop();
 
             builder.pop();

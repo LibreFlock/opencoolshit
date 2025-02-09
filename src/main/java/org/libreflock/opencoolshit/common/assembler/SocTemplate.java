@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 import org.libreflock.opencoolshit.OpenCoolshit;
+import org.libreflock.opencoolshit.Settings;
 import org.libreflock.opencoolshit.common.Items;
 import org.libreflock.opencoolshit.common.item.Soc;
 import org.libreflock.opencoolshit.server.internal.SocHost;
@@ -156,24 +157,7 @@ public class SocTemplate {
         for (int i=1;i<inv.getContainerSize();i++) {
             ItemStack item = inv.getItem(i);
             if((!item.isEmpty()) && (i != 17)) { // we're going to be the CPU, we dont want the CPU included in the components we're going to mount
-                // if(!item.hasTag()) { // this sucks but who cares
-                //     // OpenCoolshit.LOGGER.info("NO TAG FOUND, CREATING DATA");
-                //     Driver.driverFor(item).dataTag(item);
-                //     // OpenCoolshit.LOGGER.info("DATA TAG: {}", item.getTag());
-                //     // ManagedEnvironment env = Driver.driverFor(item).createEnvironment(item, new SocHost(null, ));
-                //     // env.saveData(item.getTag());
-                //     // OpenCoolshit.LOGGER.info("DATA TAG: {}", item.getTag());
-                // }
-
                 handler.setStackInSlot(i, item);
-
-                // OpenCoolshit.LOGGER.info("MAKING FUNNY: {}, {}", item.getItem().getRegistryName().toString(), item.getTag());
-                // CompoundNBT ser = new CompoundNBT();
-                // ser.putString("id", item.getItem().getRegistryName().toString());
-                // ser.putByte("Count", (byte)1);
-                // ser.put("tag", item.getOrCreateTag());
-
-                // components.add(ser);
             }
         }
         
@@ -212,7 +196,10 @@ public class SocTemplate {
         ItemStack soc = new ItemStack(item, 1);
         OpenCoolshit.LOGGER.info("NBT: {}", nbt.toString());
         soc.setTag(nbt);
-        return new Object[]{soc}; // return the item gracefully
+
+        int[] COST = new int[]{Settings.COMMON.SOC_ASSEMBLYCOST_TIER1.get(), Settings.COMMON.SOC_ASSEMBLYCOST_TIER2.get(), Settings.COMMON.SOC_ASSEMBLYCOST_TIER3.get()};
+
+        return new Object[]{soc, COST[soctier]};
     }
 
     public static void register() {

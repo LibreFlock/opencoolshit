@@ -32,7 +32,7 @@ public class PromWipeTemplate {
         int tier = ((Eeprom)Items.EEPROM_0.get()).getTier(item);
         StorageDeviceManager sdev = new StorageDeviceManager(item, address, Settings.COMMON.EEPROM_BLOCKSIZE.get(), sizes[tier]);
         sdev.erase((byte)0xFF);
-        return new Object[]{item};
+        return new Object[]{item, Settings.COMMON.EEPROM_WIPE_COST.get()*(tier+1)};
     }
 
     public static void register() {

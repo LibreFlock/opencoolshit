@@ -1,9 +1,11 @@
 package org.libreflock.opencoolshit.common.assembler;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.common.Items;
+import org.libreflock.opencoolshit.common.item.Soc;
 import org.libreflock.opencoolshit.server.internal.SocHost;
 import li.cil.oc.api.IMC;
 import li.cil.oc.api.driver.item.Slot;
@@ -11,10 +13,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 
 public class SocTemplate {
@@ -94,6 +98,52 @@ public class SocTemplate {
         } else {
             return new Object[]{true, new StringTextComponent("Ready!"), new IFormattableTextComponent[]{new StringTextComponent("PROM recommended!").withStyle(TextFormatting.DARK_RED)}};
         }
+    }
+
+
+    public static boolean selectDis(ItemStack stack) {
+        return stack.getItem().getRegistryName().toString().equals("opencoolshit:ossm_soc_0") || stack.getItem().getRegistryName().toString().equals("opencoolshit:ossm_soc_1") || stack.getItem().getRegistryName().toString().equals("opencoolshit:ossm_soc_2");
+    }
+    public static Object[] disassemble(ItemStack item, ItemStack[] ingredients) {
+        int tier = ((Soc)item.getItem()).getTier(item);
+        Item TemplateItem;
+        switch(tier) {
+            case 0:
+                TemplateItem = Items.SOC_TEMPLATE_0.get();
+                break;
+            case 1:
+                TemplateItem = Items.SOC_TEMPLATE_1.get();
+                break;
+            case 2:
+                TemplateItem = Items.SOC_TEMPLATE_2.get();
+                break;
+            default:
+                TemplateItem = Items.SOC_TEMPLATE_0.get();
+                break;
+        }
+
+        ItemStack CPU = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item.getTag().getString("oc:cpu"))));
+        ItemStack template = new ItemStack(TemplateItem);
+
+        ItemStackHandler handler = new ItemStackHandler();
+        handler.deserializeNBT(item.getTag().getCompound("components"));
+        List<ItemStack> components = new ArrayList<ItemStack>();
+        // ItemStack[] components = new ItemStack[handler.getSlots()];
+
+        for(int i=0;i<handler.getSlots();i++) {
+            ItemStack stk = handler.getStackInSlot(i);
+            if (!stk.isEmpty()) {
+                // components[components.length] = stk;
+                components.add(stk);
+            }
+        }
+
+        ItemStack[] compsfr = new ItemStack[components.size()]; // why java :((((
+        for (int i=0; i<components.size();i++) {
+            compsfr[i] = components.get(i);
+        }
+
+        return new Object[]{ compsfr, new ItemStack[]{template, CPU}};
     }
 
     // @Override
@@ -177,6 +227,11 @@ public class SocTemplate {
             upgradeSlots[0],
             cardSlots.get(0)
         );
+        IMC.registerDisassemblerTemplate(
+            name+"disassemble_0",
+            "org.libreflock.opencoolshit.common.assembler.SocTemplate.selectDis",
+            "org.libreflock.opencoolshit.common.assembler.SocTemplate.disassemble"
+        );
 
         // Tier 2
         IMC.registerAssemblerTemplate(name+"1",
@@ -188,6 +243,11 @@ public class SocTemplate {
             upgradeSlots[1],
             cardSlots.get(1)
         );
+        IMC.registerDisassemblerTemplate(
+            name+"disassemble_1",
+            "org.libreflock.opencoolshit.common.assembler.SocTemplate.selectDis",
+            "org.libreflock.opencoolshit.common.assembler.SocTemplate.disassemble"
+        );
 
         // Tier 3
         IMC.registerAssemblerTemplate(name+"2",
@@ -198,6 +258,11 @@ public class SocTemplate {
             new int[]{},
             upgradeSlots[2],
             cardSlots.get(2)
+        );
+        IMC.registerDisassemblerTemplate(
+            name+"disassemble_1",
+            "org.libreflock.opencoolshit.common.assembler.SocTemplate.selectDis",
+            "org.libreflock.opencoolshit.common.assembler.SocTemplate.disassemble"
         );
     }
 

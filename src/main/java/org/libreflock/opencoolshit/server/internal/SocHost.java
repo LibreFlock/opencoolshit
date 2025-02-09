@@ -7,8 +7,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class SocHost implements EnvironmentHost {
-    PlayerEntity player;
+public class SocHost implements EnvironmentHost { // I don't actually believe this class gets used, since that debug statement never shows up in the console
+    PlayerEntity player;                          // Just going to keep it here, in case it will be needed
     ItemStack stack;
 
     public SocHost(ItemStack stack, PlayerEntity player) {

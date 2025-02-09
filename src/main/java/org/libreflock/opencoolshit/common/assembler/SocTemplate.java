@@ -18,11 +18,12 @@ import net.minecraftforge.items.ItemStackHandler;
 
 
 public class SocTemplate {
-    public static int[][] upgradeSlots = new int[][]{
-        {0},
-        {1, 0},
-        {2, 1}
-    };
+    // public static int[][] upgradeSlots = new int[][]{
+    //     {0},
+    //     {1, 0},
+    //     {2, 1}
+    // };
+    public static int[][] upgradeSlots = new int[][]{{},{},{}};
     // public static int[][] containerSlots = new int[][]{
     //     {},
     //     {},

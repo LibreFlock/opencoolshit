@@ -35,13 +35,17 @@ public abstract class BaseItem extends Item {
         return Utils.getRarity(getTier(stack));
     }
 
+    public String genLore(ItemStack stack) {
+        return lore;
+    }
+
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         super.appendHoverText(stack, world, tooltip, flag);
         if (lore.length() > 0) {
             if (Screen.hasShiftDown()) {
-                tooltip.addAll(Utils.parseLore(lore));
+                tooltip.addAll(Utils.parseLore(genLore(stack)));
             } else {
                 tooltip.add(new StringTextComponent("<LSHIFT>").withStyle(TextFormatting.GRAY));
             }

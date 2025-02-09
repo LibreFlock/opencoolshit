@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"ici",
+		"mem",
+		"ipi"
+	],
+	"key": {
+		"i": {
+			"item": "minecraft:iron_nugget"
+		},
+		"c": {
+			"item": "opencomputers:cu"
+		},
+		"m": {
+			"item": "opencomputers:chip1"
+		},
+        "e": {
+            "item": "opencomputers:eeprom"
+        },
+        "p": {
+            "item": "opencomputers:printedcircuitboard"
+        }
+	},
+	"result": {
+		"item": "opencoolshit:ossm_prom_0"
+	}
+}

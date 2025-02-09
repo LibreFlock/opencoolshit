@@ -1,0 +1,37 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"cba",
+		"pmP",
+		"tCt"
+	],
+	"key": {
+		"c": {
+			"item": "opencomputers:cu"
+		},
+		"b": {
+			"item": "opencomputers:componentbus2"
+		},
+		"a": {
+			"item": "opencomputers:alu"
+		},
+		"p": {
+			"item": "opencomputers:circuitboard"
+		},
+		"m": {
+			"item": "opencomputers:chip2"
+		},
+		"P": {
+			"item": "opencomputers:printedcircuitboard"
+		},
+		"t": { 
+			"item": "opencomputers:transistor"
+		},
+		"C": {
+			"item": "opencomputers:cardcontainer2"
+		}
+	},
+	"result": {
+		"item": "opencoolshit:ossm_soc_template_1"
+	}
+}

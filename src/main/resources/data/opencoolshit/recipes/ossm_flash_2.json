@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"cic",
+		"oeo",
+		"cbc"
+	],
+	"key": {
+		"c": {
+			"item": "opencomputers:chip3"
+		},
+		"i": {
+			"item": "minecraft:ender_pearl"
+		},
+		"o": {
+			"item": "minecraft:emerald"
+		},
+		"e": {
+			"item": "opencoolshit:ossm_flash_1"
+		},
+		"b": {
+			"item": "opencomputers:card"
+		}
+	},
+	"result": {
+		"item": "opencoolshit:ossm_flash_2"
+	}
+}

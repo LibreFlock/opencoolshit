@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" c ",
+		"tet",
+		" u "
+	],
+	"key": {
+		"c": {
+			"item": "opencomputers:chip2"
+		},
+		"t": {
+			"item": "opencomputers:transistor"
+		},
+		"e": {
+			"item": "opencoolshit:ossm_prom_1"
+		},
+		"u": {
+			"item": "opencomputers:upgradecontainer2"
+		}
+	},
+	"result": {
+		"item": "opencoolshit:ossm_prom_upgrade_1"
+	}
+}

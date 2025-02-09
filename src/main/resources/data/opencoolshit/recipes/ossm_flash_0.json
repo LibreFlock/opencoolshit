@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"cic",
+		"oeo",
+		"cbc"
+	],
+	"key": {
+		"c": {
+			"item": "opencomputers:chip1"
+		},
+		"i": {
+			"item": "minecraft:sugar"
+		},
+		"o": {
+			"item": "minecraft:gold_nugget"
+		},
+		"e": {
+			"item": "opencomputers:disk"
+		},
+		"b": {
+			"item": "opencomputers:card"
+		}
+	},
+	"result": {
+		"item": "opencoolshit:ossm_flash_0"
+	}
+}

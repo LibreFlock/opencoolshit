@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"cic",
+		"oeo",
+		"cbc"
+	],
+	"key": {
+		"c": {
+			"item": "opencomputers:chip2"
+		},
+		"i": {
+			"item": "minecraft:soul_soil"
+		},
+		"o": {
+			"item": "opencomputers:chipdiamond"
+		},
+		"e": {
+			"item": "opencoolshit:ossm_flash_0"
+		},
+		"b": {
+			"item": "opencomputers:card"
+		}
+	},
+	"result": {
+		"item": "opencoolshit:ossm_flash_1"
+	}
+}

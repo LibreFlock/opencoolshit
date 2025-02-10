@@ -57,9 +57,9 @@ public class Flash extends AbstractManagedEnvironment implements DeviceInfo{
             put(DeviceInfo.DeviceAttribute.Class, DeviceInfo.DeviceClass.Disk);
             put(DeviceInfo.DeviceAttribute.Description, "Flash");
             put(DeviceInfo.DeviceAttribute.Vendor, "Shadow Kat Semiconductor");
-            put(DeviceInfo.DeviceAttribute.Version, "Rev ${tier+1}");
-            put(DeviceInfo.DeviceAttribute.Capacity, "$capacity");
-            put(DeviceInfo.DeviceAttribute.Product, "FISH-${capacity/1024}");
+            put(DeviceInfo.DeviceAttribute.Version, String.format("Rev %d", tier+1));
+            put(DeviceInfo.DeviceAttribute.Capacity, Integer.toString(sdev.blks*sdev.blksize));
+            put(DeviceInfo.DeviceAttribute.Product, String.format("FISH-%d", (sdev.blks*sdev.blksize)/1024));
         }};
     }
 

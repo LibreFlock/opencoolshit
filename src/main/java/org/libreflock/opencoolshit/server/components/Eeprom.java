@@ -51,15 +51,23 @@ public class Eeprom extends AbstractManagedEnvironment implements DeviceInfo {
 
     @Override
     public Map<String, String> getDeviceInfo() {
+        // String modelletter = "D";
+        // switch(tier) {
+        //     case 1:
+        //         modelletter = "C";
+        //     case 2:
+        //         modelletter = "U";
+        // }
+        final String modelletters = "DCU";
         return new HashMap<String,String>() {{
             put(DeviceInfo.DeviceAttribute.Class, DeviceInfo.DeviceClass.Disk);
             put(DeviceInfo.DeviceAttribute.Description, "PROM");
             put(DeviceInfo.DeviceAttribute.Vendor, "Shadow Kat Semiconductor");
-            put(DeviceInfo.DeviceAttribute.Version, "Rev ${tier+1}");
-            put(DeviceInfo.DeviceAttribute.Capacity, "$capacity");
+            put(DeviceInfo.DeviceAttribute.Version, String.format("Rev %d", tier+1));
+            put(DeviceInfo.DeviceAttribute.Capacity, Integer.toString(sdev.blks*sdev.blksize));
             // put(DeviceInfo.DeviceAttribute.Product, "ROMCOM-${capacity/1024}${model_letters[formfactor]}${if (tier > 0) "K" else ""}");
-            put(DeviceInfo.DeviceAttribute.Product, "ROMCOM-somethingsomething"); // TODO: FIX THIS
-            put(DeviceInfo.DeviceAttribute.Clock, "${capacity/Settings.storage.eepromEEPROMTime}");
+            put(DeviceInfo.DeviceAttribute.Product, "ROMCOM-"+Integer.toString((sdev.blks*sdev.blksize)/1024)+modelletters.charAt(tier)+(tier>0 ? "K" : "")); // pain
+            put(DeviceInfo.DeviceAttribute.Clock, Integer.toString((sdev.blks*sdev.blksize)/Settings.COMMON.EEPROM_FLASH_TIME.get()));
         }};
     }
 

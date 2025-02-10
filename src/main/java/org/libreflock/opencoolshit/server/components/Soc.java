@@ -74,8 +74,8 @@ public class Soc extends AbstractManagedEnvironment implements DeviceInfo {
             put(DeviceInfo.DeviceAttribute.Class, DeviceInfo.DeviceClass.Processor);
             put(DeviceInfo.DeviceAttribute.Description, "SoC");
             put(DeviceInfo.DeviceAttribute.Vendor, "Shadow Kat Semiconductor");
-            put(DeviceInfo.DeviceAttribute.Product, "SubSpaceShip blahblah"); // TODO: FIX THIS
-            put(DeviceInfo.DeviceAttribute.Clock, "${capacity/Settings.storage.eepromEEPROMTime}");
+            put(DeviceInfo.DeviceAttribute.Product, String.format("SubSpaceShip %d", ((tier)*2)+1));
+            put(DeviceInfo.DeviceAttribute.Clock, "nobody knows...");
         }};
     }
 

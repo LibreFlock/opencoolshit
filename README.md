@@ -12,4 +12,4 @@ The only port currently being worked on is that of [OpenSolidstate by ShadowKatS
 
 This mod adds stuff like flash drives, general purpose (E)EPROMS and SoC's. In the process of porting this mod, we did take some liberties in changing functionality, however all assets are the same.
 
-The mod did not contain a license so i'm not sure if we're allowed to port this. If you are the owner of OpenSolidstate, please contact me on discord if you are upset that we used your assets. 
+The mod did not contain a license so i'm not sure if we're allowed to port this. If you are the owner of OpenSolidstate, please contact me on discord if you are upset that we used your assets.

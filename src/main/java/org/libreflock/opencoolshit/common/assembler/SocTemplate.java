@@ -90,6 +90,10 @@ public class SocTemplate {
             return new Object[]{false, new StringTextComponent("No CPU!").withStyle(TextFormatting.RED)};
         }
 
+        if (inv.getItem(17).getItem().getRegistryName().toString().startsWith("opencoolshit:ossm_soc")) {
+            return new Object[]{false, new StringTextComponent("nice try").withStyle(TextFormatting.RED)};
+        }
+
         if (!inv.getItem(14).isEmpty() && !inv.getItem(14).getItem().getRegistryName().toString().startsWith("opencoolshit:ossm_prom_")) {
             return new Object[]{false, new StringTextComponent("No HDDs allowed!").withStyle(TextFormatting.RED)};
         }

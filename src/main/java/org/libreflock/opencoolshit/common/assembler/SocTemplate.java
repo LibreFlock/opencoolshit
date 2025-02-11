@@ -153,6 +153,8 @@ public class SocTemplate {
 
     // @Override
     public static Object[] assemble(IInventory inv) {
+        boolean isAPU = inv.getItem(17).getItem().getRegistryName().toString().startsWith("opencomputers:apu");
+
         // ItemStack soc = new ItemStack()
         CompoundNBT nbt = new CompoundNBT();
         // ListNBT components = new ListNBT();
@@ -160,7 +162,7 @@ public class SocTemplate {
         handler.setSize(inv.getContainerSize());
         for (int i=1;i<inv.getContainerSize();i++) {
             ItemStack item = inv.getItem(i);
-            if((!item.isEmpty()) && (i != 17)) { // we're going to be the CPU, we dont want the CPU included in the components we're going to mount
+            if((!item.isEmpty()) && (i != 17 || isAPU)) { // we're going to be the CPU, we dont want the CPU included in the components we're going to mount (unless APU)
                 handler.setStackInSlot(i, item);
             }
         }

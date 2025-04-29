@@ -8,18 +8,19 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class CreativeTabs {
     public static final ItemGroup OSSM = new Tab("OpenSolidState", Items.ITEMGROUP);
+    public static final ItemGroup Computronicles = new Tab("Computronicles", Items.ITEMGROUP);
 
     public static class Tab extends ItemGroup {
         private RegistryObject<Item> icon;
 
         public Tab(String label, RegistryObject<Item> icon){
-        super(label);
-        this.icon = icon;
+            super(label);
+            this.icon = icon;
         }
 
         @Override
         public ItemStack makeIcon(){
-        return this.icon.get().getDefaultInstance();
+            return this.icon.get().getDefaultInstance();
         }
     }
 }

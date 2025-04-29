@@ -1,16 +1,16 @@
 package org.libreflock.opencoolshit;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.storage.FolderName;
-// import net.minecraft.item.ItemModelsProperties;
-// import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-// import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -22,12 +22,15 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.libreflock.opencoolshit.common.item.Items;
+import org.libreflock.opencoolshit.common.network.PacketHandler;
+import org.libreflock.opencoolshit.common.CreativeTabs;
 import org.libreflock.opencoolshit.common.assembler.PromWipeTemplate;
 import org.libreflock.opencoolshit.common.assembler.SocTemplate;
 import org.libreflock.opencoolshit.common.block.Blocks;
 import org.libreflock.opencoolshit.server.internal.EepromDriver;
 import org.libreflock.opencoolshit.server.internal.FlashDriver;
 import org.libreflock.opencoolshit.server.internal.SocDriver;
+import org.libreflock.opencoolshit.server.tile.Tiles;
 
 import java.nio.file.Path;
 import java.util.stream.Collectors;
@@ -54,6 +57,9 @@ public class OpenCoolshit
 
         Items.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Blocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Tiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        PacketHandler.registerMessages();
 
         ModLoadingContext.get().registerConfig(Type.COMMON, Settings.COMMON_SPEC, "opencoolshit.toml");
         // Register ourselves for server and other game events we are interested in
@@ -122,10 +128,28 @@ public class OpenCoolshit
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        // @SubscribeEvent
+        // public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+        //     // // register a new block here
+        //     // LOGGER.info("HELLO from Register Block");
+        //     for (RegistryObject<Block> block : Blocks.BLOCKS.getEntries()) {
+        //         block.get()
+        //     }
+        // }
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
+            for (RegistryObject<Block> block : Blocks.BLOCKS.getEntries()) {
+                LOGGER.info(block.toString());
+                Item.Properties props = new Item.Properties().tab(CreativeTabs.OSSM);
+                event.getRegistry().register(new BlockItem(block.get(), props).setRegistryName(block.get().getRegistryName()));
+            }
         }
+
+        // @SubscribeEvent
+        // public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
+        //     // event.getRegistry().register(TileEntityType.Builder.create(FirstBlockTile::new, ModBlocks.FIRSTBLOCK).build(null).setRegistryName("firstblock"));
+        //     // Supplier<? extends T> supp = (Supplier<? extends T>) () -> new IronNoteblockTile();
+        //     event.getRegistry().register(.setRegistryName(Blocks.IRON_NOTEBLOCK.get().getRegistryName()));
+        // }
     }
 }

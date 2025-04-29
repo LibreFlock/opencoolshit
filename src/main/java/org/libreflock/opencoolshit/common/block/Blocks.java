@@ -8,5 +8,5 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Blocks {
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "opencoolshit");
 
-    public static RegistryObject<Block> IRON_NOTEBLOCK = BLOCKS.register("iron_noteblock", () -> new BaseBlock());
+    public static RegistryObject<Block> IRON_NOTEBLOCK = BLOCKS.register("iron_noteblock", () -> new IronNoteblock());
 }

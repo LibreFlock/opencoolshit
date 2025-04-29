@@ -1,5 +1,6 @@
 package org.libreflock.opencoolshit.common;
 
+import org.libreflock.opencoolshit.common.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

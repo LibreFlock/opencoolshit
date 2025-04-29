@@ -21,9 +21,10 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.libreflock.opencoolshit.common.Items;
+import org.libreflock.opencoolshit.common.item.Items;
 import org.libreflock.opencoolshit.common.assembler.PromWipeTemplate;
 import org.libreflock.opencoolshit.common.assembler.SocTemplate;
+import org.libreflock.opencoolshit.common.block.Blocks;
 import org.libreflock.opencoolshit.server.internal.EepromDriver;
 import org.libreflock.opencoolshit.server.internal.FlashDriver;
 import org.libreflock.opencoolshit.server.internal.SocDriver;
@@ -52,6 +53,7 @@ public class OpenCoolshit
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
         Items.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Blocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ModLoadingContext.get().registerConfig(Type.COMMON, Settings.COMMON_SPEC, "opencoolshit.toml");
         // Register ourselves for server and other game events we are interested in

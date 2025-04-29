@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 import org.libreflock.opencoolshit.OpenCoolshit;
 import org.libreflock.opencoolshit.Settings;
-import org.libreflock.opencoolshit.common.Items;
+import org.libreflock.opencoolshit.common.item.Items;
 import org.libreflock.opencoolshit.common.item.Soc;
 import org.libreflock.opencoolshit.server.internal.SocHost;
 import li.cil.oc.api.IMC;

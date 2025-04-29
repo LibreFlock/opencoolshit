@@ -1,10 +1,6 @@
-package org.libreflock.opencoolshit.common;
+package org.libreflock.opencoolshit.common.item;
 
-import org.libreflock.opencoolshit.common.item.Eeprom;
-import org.libreflock.opencoolshit.common.item.Flash;
-import org.libreflock.opencoolshit.common.item.Soc;
-import org.libreflock.opencoolshit.common.item.SocTemplate;
-
+import org.libreflock.opencoolshit.common.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

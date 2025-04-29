@@ -1,7 +1,7 @@
 package org.libreflock.opencoolshit.common.assembler;
 import org.apache.commons.lang3.tuple.Pair;
 import org.libreflock.opencoolshit.Settings;
-import org.libreflock.opencoolshit.common.Items;
+import org.libreflock.opencoolshit.common.item.Items;
 import org.libreflock.opencoolshit.common.item.Eeprom;
 import org.libreflock.opencoolshit.server.utils.StorageDeviceManager;
 import li.cil.oc.api.IMC;
